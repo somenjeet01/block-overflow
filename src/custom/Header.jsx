@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { Wallet, Loader2 } from 'lucide-react';
 import { useWallet } from '../context/WalletContext';
+import logo from "../assets/blockoverflow_logo.png"
 
 function Header() {
   const { account, connectWallet, loading } = useWallet();
@@ -8,7 +9,10 @@ function Header() {
   return (
     <nav className="bg-[#eff4fe] font-Barlow" style={{fontFamily: "Barlow"}}>
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-        <h1 className="text-xl font-medium lowercase tracking-tight  text-[#4541c1]">BlockOverflow</h1>
+        <div className='flex items-center gap-1 '>
+        <img src={logo} className='w-8 h-auto' />
+        <h1 className="text-xl font-medium lowercase tracking-tight self-end text-[#4541c1]">BlockOverflow</h1>
+        </div>
         <div className="flex items-center space-x-6">
           <div className="hidden md:flex space-x-6">
             <NavLink
