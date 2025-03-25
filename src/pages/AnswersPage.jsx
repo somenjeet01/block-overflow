@@ -12,12 +12,7 @@ import { AnswersHeader } from "../components/answers/AnswersHeader";
 import { AnswerCard } from "../components/answers/AnswerCard";
 import { AnswerInput } from "../components/answers/AnswerInput";
 import { NavigationButtons } from "../components/answers/NavigationButtons";
-import { answersData } from "../data/answersData";
-
-
-
-
-
+import { answersData } from "@/data/answersData";
 
 
 function AnswerPage() {

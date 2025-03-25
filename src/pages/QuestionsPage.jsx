@@ -143,7 +143,7 @@ function QuestionsPage() {
 
   return (
     <main
-      className="w-full min-h-screen px-4 pt-10 pb-8 bg-[#eff4fe]"
+      className="w-full min-h-screen px-4 pt-10 pb-8"
       style={{ fontFamily: "Barlow" }}
     >
       <motion.div
@@ -174,7 +174,7 @@ function QuestionsPage() {
       )}
 
       <div className="space-y-6 max-w-screen-lg mx-auto">
-        <div className="p-6 rounded-lg shadow-lg">
+        {/* <div className="p-6 rounded-lg shadow-lg"> */}
           <motion.div
             className="max-w-3xl mx-auto glass rounded-2xl p-6 mb-12 shadow-sm"
             initial={{ opacity: 0, y: 20 }}
@@ -221,7 +221,7 @@ function QuestionsPage() {
               </div>
             </div>
           </motion.div>
-        </div>
+        {/* </div> */}
       </div>
 
       <div className="space-y-6 mt-10 max-w-screen-xl mx-auto">
@@ -229,22 +229,22 @@ function QuestionsPage() {
           <h2 className="heading-3">Recent Questions</h2>
 
           <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
-            <div className="relative w-full md:w-96">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-              <Input
-                type="text"
-                placeholder="Search questions..."
-                className="pl-10 w-full"
-                value={searchQuery}
-                onChange={handleSearch}
-              />
-            </div>
+             <div className="relative w-full md:w-96">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+          <Input
+            type="text"
+            placeholder="Search questions..."
+            className="pl-10 w-full"
+            value={searchQuery}
+            onChange={handleSearch}
+          />
+        </div>
 
             <ToggleGroup
               type="single"
               value={filter}
               onValueChange={(value) => value && setFilter(value)}
-              className="border rounded-md bg-background p-1"
+              className="border rounded-md bg-background"
             >
               <ToggleGroupItem
                 value="all"
@@ -260,7 +260,7 @@ function QuestionsPage() {
               </ToggleGroupItem>
               <ToggleGroupItem
                 value="unanswered"
-                className="text-xs sm:text-sm px-2 sm:px-3"
+                className="text-xs sm:text-sm px-28 sm:px-3"
               >
                 Unanswered
               </ToggleGroupItem>
