@@ -1,31 +1,38 @@
-import { NavLink ,useLocation} from 'react-router-dom';
-import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
-import { Wallet, Loader2 } from 'lucide-react';
-import { useWallet } from '../context/WalletContext';
-import logo from "../assets/blockoverflow_logo.png"
-import { Button } from "@/components/ui/button"
+import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { Wallet, Loader2 } from "lucide-react";
+import { useWallet } from "../context/WalletContext";
+import logo from "../assets/blockoverflow_logo.png";
+import { Button } from "@/components/ui/button";
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../components/ui/dropdown-menu";
 
 function Header() {
-  const { account, connectWallet, loading } = useWallet();
-   const location = useLocation()
-    const [scrolled, setScrolled] = useState(false)
-  
-    useEffect(() => {
-      const handleScroll = () => {
-        setScrolled(window.scrollY > 20)
-      }
-  
-      window.addEventListener("scroll", handleScroll)
-      return () => window.removeEventListener("scroll", handleScroll)
-    }, [])
-  
-    const isActive = path => location.pathname === path
+  const { account, connectWallet, loading, disconnectWallet, balance } =
+    useWallet();
+  const location = useLocation();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const isActive = (path) => location.pathname === path;
 
   return (
     <motion.header
-      className={`sticky top-0 z-40 w-full transition-all duration-300 font-Barlow ${scrolled ? "glass" : "bg-transparent py-5"}`}
+      className={`sticky top-0 z-40 w-f ull transition-all duration-300 font-Barlow ${scrolled ? "glass" : "bg-transparent py-5"}`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
@@ -40,35 +47,86 @@ function Header() {
         </div>
 
         {/* Navigation Links */}
-        <nav className="hidden md:flex items-center space-x-6">
-          {[{ path: "/", label: "Questions" }, { path: "/answer", label: "Answer" }, { path: "/manage", label: "Manage" }].map((item) => (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              className={({ isActive }) =>
-                `text-base font-medium ${isActive ? "text-[#8897f1]" : "text-gray-600 hover:text-[#4541c1]"} transition-colors duration-200 relative group`
-              }
-            >
-              {item.label}
-              <motion.span
-                layoutId="activeNav"
-                className="absolute bottom-0 left-0 w-full h-0.5 bg-primary"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
-              ></motion.span>
-            </NavLink>
+        <nav className="hidden md:flex items-center space-x-1">
+          {[
+            { path: "/", label: "Questions" },
+            { path: "/answer", label: "Answer" },
+            { path: "/manage", label: "Manage" },
+          ].map((item) => (
+            <Link key={item.path} to={item.path}>
+              <Button
+                variant={isActive(item.path) ? "default" : "ghost"}
+                className="relative group"
+                size="sm"
+              >
+                {item.label}
+                {isActive(item.path) && (
+                  <motion.span
+                    layoutId="activeNav"
+                    className="absolute bottom-0 left-0 w-full h-0.5 bg-[#4541c1]"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                  ></motion.span>
+                )}
+              </Button>
+            </Link>
           ))}
         </nav>
 
         {/* Connect Wallet Button */}
-        <div className="hidden md:block">
-          <Button onClick={connectWallet} disabled={loading} className="relative overflow-hidden group px-4 py-2 bg-[#5150db] text-white rounded-lg hover:bg-[#4541c1] transition-all duration-200">
+
+        {/* <Button
+            onClick={connectWallet}
+            disabled={loading}
+            className="relative overflow-hidden group px-4 py-2 bg-[#5150db] text-white rounded-lg hover:bg-[#4541c1] transition-all duration-200"
+          >
             <span className="relative z-10">
-              {loading ? "Connecting..." : account ? `${account.slice(0, 6)}...${account.slice(-4)}` : "Connect Wallet"}
+              {loading
+                ? "Connecting..."
+                : account
+                  ? `${account.slice(0, 6)}...${account.slice(-4)}`
+                  : "Connect Wallet"}
             </span>
-            <span className="absolute inset-0 bg-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-          </Button>
+            <span className="absolute inset-0 bg-[#4541c1] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+          </Button> */}
+
+        <div className="pl-6 border-l border-gray-200/50">
+          {account ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="flex items-center px-4 py-2 bg-[#5150db] cursor-pointer text-white rounded-lg hover:bg-[#4541c1] disabled:bg-indigo-400 transition-all duration-200"
+                >
+                  <Wallet className="w-4 h-4 text-white" />
+                  <span className="font-medium text-sm text-white">
+                    {account.slice(0, 6)}...{account.slice(-4)}
+                  </span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <div className="p-2 border-b">
+                  <p className="text-xs text-muted-foreground">Balance</p>
+                  <p className="font-medium">{balance} ETH</p>
+                </div>
+                <DropdownMenuItem
+                  onClick={disconnectWallet}
+                  className="text-destructive focus:text-destructive"
+                >
+                  Disconnect Wallet
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button
+              onClick={connectWallet}
+              disabled={loading}
+              className="btn-primary"
+            >
+              {loading ? "Connecting..." : "Connect Wallet"}
+            </Button>
+          )}
         </div>
 
         {/* Mobile Menu Button */}

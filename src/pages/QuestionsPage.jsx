@@ -175,52 +175,52 @@ function QuestionsPage() {
 
       <div className="space-y-6 max-w-screen-lg mx-auto">
         {/* <div className="p-6 rounded-lg shadow-lg"> */}
-          <motion.div
-            className="max-w-3xl mx-auto glass rounded-2xl p-6 mb-12 shadow-sm"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <h2 className="text-3xl font-semibold text-gray-900 mb-4">
-              Post Your Question
-            </h2>
-            <div className="flex flex-col space-y-4">
-              <Textarea
-                placeholder="What's your question?"
-                className="resize-none text-lg w-full p-3 border border-slate-300 rounded-lg outline-none"
-                rows={4}
-                value={questionContent}
-                onChange={(e) => setQuestionContent(e.target.value)}
-              />
-              <input
-                type="number"
-                placeholder="Bounty (ETH)"
-                value={bounty}
-                onChange={(e) => setBounty(e.target.value)}
-                className="w-full p-3 border border-slate-300 rounded-lg outline-none"
-              />
-              <div className="flex justify-between items-center">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Badge
-                    variant="outline"
-                    className="gap-1 cursor-pointer hover:bg-secondary"
-                  >
-                    <span>#</span> Tags
-                  </Badge>
-                  <span>•</span>
-                  <span>Keep it clear and specific</span>
-                </div>
-                <Button
-                  onClick={postQuestion}
-                  disabled={loadingState.transaction}
-                  className="gap-2 flex items-center px-6 py-3 bg-[#5150db] text-white rounded-lg hover:bg-[#4541c1] cursor-pointer disabled:bg-indigo-400 transition-all duration-200"
+        <motion.div
+          className="max-w-3xl mx-auto glass rounded-2xl p-6 mb-12 shadow-sm"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <h2 className="text-3xl font-semibold text-gray-900 mb-4">
+            Post Your Question
+          </h2>
+          <div className="flex flex-col space-y-4">
+            <Textarea
+              placeholder="What's your question?"
+              className="resize-none text-lg w-full p-3 border border-slate-300 rounded-lg outline-none"
+              rows={4}
+              value={questionContent}
+              onChange={(e) => setQuestionContent(e.target.value)}
+            />
+            <input
+              type="number"
+              placeholder="Bounty (ETH)"
+              value={bounty}
+              onChange={(e) => setBounty(e.target.value)}
+              className="w-full p-3 border border-slate-300 rounded-lg outline-none"
+            />
+            <div className="flex justify-between items-center">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Badge
+                  variant="outline"
+                  className="gap-1 cursor-pointer hover:bg-secondary"
                 >
-                  <MessageCircle className="size-4 mr-2" />
-                  <span>Post Question</span>
-                </Button>
+                  <span>#</span> Tags
+                </Badge>
+                <span>•</span>
+                <span>Keep it clear and specific</span>
               </div>
+              <Button
+                onClick={postQuestion}
+                disabled={loadingState.transaction}
+                className="gap-2 flex items-center px-6 py-3 bg-[#5150db] text-white rounded-lg hover:bg-[#4541c1] cursor-pointer disabled:bg-indigo-400 transition-all duration-200"
+              >
+                <MessageCircle className="size-4 mr-2" />
+                <span>Post Question</span>
+              </Button>
             </div>
-          </motion.div>
+          </div>
+        </motion.div>
         {/* </div> */}
       </div>
 
@@ -229,16 +229,16 @@ function QuestionsPage() {
           <h2 className="heading-3">Recent Questions</h2>
 
           <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
-             <div className="relative w-full md:w-96">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-          <Input
-            type="text"
-            placeholder="Search questions..."
-            className="pl-10 w-full"
-            value={searchQuery}
-            onChange={handleSearch}
-          />
-        </div>
+            <div className="relative w-full md:w-96">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <Input
+                type="text"
+                placeholder="Search questions..."
+                className="pl-10 w-full"
+                value={searchQuery}
+                onChange={handleSearch}
+              />
+            </div>
 
             <ToggleGroup
               type="single"
@@ -283,8 +283,8 @@ function QuestionsPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: 0.1 * index }}
                   >
-                    <Card className="overflow-hidden bg-white border-border/60">
-                      <CardHeader className="pb-3">
+                    <Card className="overflow-hidden gap-5 bg-white border-border/60">
+                      <CardHeader className="pb-0">
                         <div className="flex justify-between items-start">
                           <CardTitle className="text-xl font-medium">
                             Q#{q.id}: {q.content}
@@ -292,7 +292,7 @@ function QuestionsPage() {
                         </div>
                       </CardHeader>
 
-                      <CardContent className="pt-0 pb-2">
+                      <CardContent className="pt-0 pb-0">
                         <div className="flex flex-wrap items-center gap-4 mb-3 text-sm">
                           <div className="flex items-center gap-2">
                             <span>
@@ -343,7 +343,7 @@ function QuestionsPage() {
                           </div>
 
                           {loadingState.answers[q.id] ? (
-                            <div className="mt-4 flex justify-center">
+                            <div className="mt- 4 flex justify-center">
                               <Loader2 className="animate-spin h-5 w-5 text-indigo-600" />
                             </div>
                           ) : (
@@ -378,7 +378,7 @@ function QuestionsPage() {
                           )}
                         </div>
                       ) : (
-                        <div className="px-6 py-3 border-t border-border/60">
+                        <div className="px-6 py-0 pt-2 border-t border-border/60">
                           <Button
                             variant="link"
                             className="text-indigo-600 p-0 h-auto font-medium"
@@ -391,7 +391,7 @@ function QuestionsPage() {
                         </div>
                       )}
 
-                      <CardFooter className="flex justify-between py-3 border-t border-border/60">
+                      <CardFooter className="flex justify-between py-0 pt-2 border-t border-border/60">
                         <div className="flex items-center gap-4">
                           <Button
                             variant="ghost"

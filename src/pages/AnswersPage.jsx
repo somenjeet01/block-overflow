@@ -47,7 +47,7 @@ function AnswerPage() {
   };
 
   return (
-    <main className="px-4 py-8 bg-[#eff4fe] min-h-screen" style={{ fontFamily: "Barlow" }}>
+    <main className="px-4 py-8  min-h-screen">
       {/* Loading Indicator */}
       {loading && (
         <div className="fixed inset-0 bg-gray-900/50 flex items-center justify-center z-50">
